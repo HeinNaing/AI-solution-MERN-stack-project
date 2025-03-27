@@ -4,22 +4,24 @@ import { useContext } from "react";
 
 
 /* ----  data import  ----  */
-import {images} from "../assets/images";
+import { images } from "../assets/images";
 import { missions } from '../data/missions';
 import { features } from '../data/features';
+import { blogPosts } from '../data/blogPosts';
 
 
 /* ----  card import here  ----  */
 import MissionCard from "../components/MissionCard";
 import FeatureCard from "../components/FeatureCard";
+import BlogCard from '../components/BlogCard';
 
 /* ----  icon import here  ----  */
-import {FaEnvelope, FaChevronDown, FaGlobeAmericas, FaLightbulb, FaUsers, FaLeaf } from 'react-icons/fa';
+import { FaEnvelope, FaChevronDown, FaGlobeAmericas, FaLightbulb, FaUsers, FaLeaf } from 'react-icons/fa';
 const iconMap = {
-    FaGlobeAmericas: FaGlobeAmericas,
-    FaLightbulb: FaLightbulb,
-    FaUsers: FaUsers,
-    FaLeaf: FaLeaf
+  FaGlobeAmericas: FaGlobeAmericas,
+  FaLightbulb: FaLightbulb,
+  FaUsers: FaUsers,
+  FaLeaf: FaLeaf
 };
 
 
@@ -27,6 +29,10 @@ const iconMap = {
 
 const Home = () => {
   const { isDarkMode } = useContext(ThemeContext);
+
+  // Get first 3 blog posts
+  const recentPosts = blogPosts.slice(0, 3);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -36,12 +42,12 @@ const Home = () => {
           <p className="text-lg  font-outfit ml-3 text-gray-500">AI solution is wating for you</p>
           <h1 className="text-5xl font-bold mb-6">
             <span className="text-primary">Join us </span>
-             and Grow
-            <span className="text-primary"> your business </span> 
-            
+            and Grow
+            <span className="text-primary"> your business </span>
+
           </h1>
           <p className="text-lg  mb-10 font-istok text-[#777]">
-          We address today's business challenges with focused AI solutions, from intelligent automation to insightful data analytics. Discover how we empower your transformation.
+            We address today's business challenges with focused AI solutions, from intelligent automation to insightful data analytics. Discover how we empower your transformation.
           </p>
           {/* Stats */}
           <div className="flex flex-col sm:flex-row gap-5 sm:gap-12 mb-12">
@@ -61,7 +67,7 @@ const Home = () => {
           {/* Contact Button */}
           <button className="bg-primary text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-[#3445DB] transition-colors duration-200 font-outfit group cursor-pointer">
             Contact Now
-            <FaEnvelope className="group-hover:animate-bounce"/>
+            <FaEnvelope className="group-hover:animate-bounce" />
           </button>
         </div>
         {/* Right Image */}
@@ -98,9 +104,9 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="rounded-lg p-3 aspect-square ">
               <div className="w-full h-full flex items-center justify-center">
-                <img 
-                  src={images.marketing} 
-                  alt="AI Solutions Features" 
+                <img
+                  src={images.marketing}
+                  alt="AI Solutions Features"
                   className="w-full h-full object-contain rounded-full shadow-lg hover:rotate-x-15 hover:-rotate-y-30 hover:scale-110 transition-all duration-500"
                 />
               </div>
@@ -122,33 +128,12 @@ const Home = () => {
 
       {/* AI Solution's Blogs Section */}
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center  mb-12">
+        <h2 className="text-3xl font-bold text-center mb-12">
           AI Solution's Blogs
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[1, 2, 3].map((blog) => (
-            <div
-              key={blog}
-              className="bg-white rounded-lg overflow-hidden shadow-lg"
-            >
-              <div className="bg-[#F1F5F9] p-4 aspect-video flex items-center justify-center">
-                <svg
-                  className="w-16 h-16 text-gray-400"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z" />
-                </svg>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold  mb-2">Heading</h3>
-                <p className="text-gray-600 mb-4">
-                  Lorem ipsum dolor sit amet nulla adipiscing elit. Nunc
-                  maximus, nec ut commodo
-                </p>
-                <p className="text-sm text-gray-500">{blog} days ago</p>
-              </div>
-            </div>
+          {recentPosts.map((post) => (
+            <BlogCard key={post.id} post={post} />
           ))}
         </div>
       </div>
@@ -190,9 +175,8 @@ const Home = () => {
             {[1, 2, 3].map((dot) => (
               <button
                 key={dot}
-                className={`w-2 h-2 rounded-full ${
-                  dot === 1 ? "bg-[#4052FF]" : "bg-gray-300"
-                }`}
+                className={`w-2 h-2 rounded-full ${dot === 1 ? "bg-[#4052FF]" : "bg-gray-300"
+                  }`}
                 aria-label={`Go to slide ${dot}`}
               />
             ))}
@@ -200,7 +184,7 @@ const Home = () => {
         </div>
       </div>
 
-      
+
     </div>
   );
 };

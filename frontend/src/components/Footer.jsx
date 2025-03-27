@@ -1,29 +1,53 @@
+import { images } from "../assets/images";
+import { NavLink } from "react-router";
+import { useEffect, useState } from "react";
+
+/* ----  router import here  ---- */
+import RoutePath from "../router/RoutePath";
+
 const footer = () => {
-    return (
-      <footer className="bg-white border-t">
+  const eventDisplay = RoutePath.eventDisplay;
+  const customerFeedback = RoutePath.customerFeedback;
+
+
+  const isEventDisplayPage = location.pathname === eventDisplay;
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      if (currentScrollPos > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  return (
+    <footer className=" border-t">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-[#4052FF] rounded-lg"></div>
-              <span className="font-bold ">AI Solution</span>
+            <div className="flex  gap-2 mb-4 pr-10">
+              {/* logo */}
+              <NavLink to="/" className={`btn btn-ghost text-xl font-outfit p-2 flex items-center `}>
+                <img src={images.logo} alt="" className="w-20 h-20 -ml-5" />
+                <span className="-ml-6 ">AI Solution</span>
+              </NavLink>
             </div>
             <p className="text-gray-600 mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              Discover how we empower your transformation.
             </p>
           </div>
           <div>
             <h4 className="font-semibold  mb-4">Company information</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#4052FF]">
-                  Photo Gallery
-                </a>
+                <NavLink to={eventDisplay} className="font-outfit text-gray-600 hover:text-[#4052FF]">Our Company's Events</NavLink>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#4052FF]">
-                  Customer Feedback
-                </a>
+                <NavLink to={customerFeedback} className="font-outfit text-gray-600 hover:text-[#4052FF]">Customer Feedback</NavLink>
               </li>
             </ul>
           </div>
@@ -31,25 +55,18 @@ const footer = () => {
             <h4 className="font-semibold  mb-4">Navigation</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#4052FF]">
-                  Home
-                </a>
+                <NavLink to="/" className="font-outfit text-gray-600 hover:text-[#4052FF]">Home</NavLink>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#4052FF]">
-                  Contact Us
-                </a>
+                <NavLink to={RoutePath.contactUs} className="font-outfit text-gray-600 hover:text-[#4052FF]">Contact Us</NavLink>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#4052FF]">
-                  Software Solutions
-                </a>
+                <NavLink to={RoutePath.blog} className="font-outfit text-gray-600 hover:text-[#4052FF]">Blogs</NavLink>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-[#4052FF]">
-                  Industries Solutions
-                </a>
+                <NavLink to={RoutePath.industrySolution} className="font-outfit text-gray-600 hover:text-[#4052FF]">Industries Solutions</NavLink>
               </li>
+
             </ul>
           </div>
           <div>
@@ -63,7 +80,7 @@ const footer = () => {
                 >
                   <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                 </svg>
-                info@gmail.com
+                contact@aisolution.com
               </li>
               <li className="flex items-center gap-2 text-gray-600">
                 <svg
@@ -83,7 +100,7 @@ const footer = () => {
                 >
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z" />
                 </svg>
-                Lorem ipsum dolor sit amet
+                United Kingdom
               </li>
             </ul>
             <div className="flex gap-4 mt-4">
@@ -122,6 +139,6 @@ const footer = () => {
         </div>
       </div>
     </footer>
-    )
+  )
 }
 export default footer;

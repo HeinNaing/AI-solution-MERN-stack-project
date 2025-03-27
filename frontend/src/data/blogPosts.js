@@ -4,7 +4,7 @@ export const blogPosts = [
         title: "AI-Powered Virtual Assistants: Transforming the Digital Employee Experience",
         date: "2 days ago",
         readTime: "5 min read",
-        image: "/blog/virtual-assistant.jpg",
+        image: "https://plus.unsplash.com/premium_photo-1725907643560-8d2dc0124337?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8QUklMjBQb3dlcmVkJTIwVmlydHVhbCUyMEFzc2lzdGFudHN8ZW58MHx8MHx8fDA%3D",
         tags: ["AI", "Virtual Assistants", "DEX"],
         content: {
             introduction: {
@@ -41,7 +41,7 @@ export const blogPosts = [
         title: "Machine Learning in Business: From Data to Decisions",
         date: "5 days ago",
         readTime: "7 min read",
-        image: "/blog/machine-learning.jpg",
+        image: "https://images.unsplash.com/photo-1542744173-05336fcc7ad4?q=80&w=2602&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         tags: ["Machine Learning", "Business Intelligence", "AI"],
         content: {
             introduction: {
@@ -78,7 +78,7 @@ export const blogPosts = [
         title: "The Future of Digital Transformation: AI-Driven Innovation",
         date: "1 week ago",
         readTime: "6 min read",
-        image: "/blog/digital-transformation.jpg",
+        image: "https://plus.unsplash.com/premium_photo-1682310083671-e247ad36e0b6?q=80&w=2712&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         tags: ["Digital Transformation", "Innovation", "AI"],
         content: {
             introduction: {
@@ -115,7 +115,7 @@ export const blogPosts = [
         title: "Serverless AI: Scaling Applications Without Infrastructure Headaches",
         date: "10 days ago",
         readTime: "12 min read",
-        image: "/blog/serverless-ai.jpg",
+        image: "https://www.technology-innovators.com/wp-content/uploads/2023/05/Serverless-AI-The-Intersection-of-Serverless-Computing-and-Artificial-Intelligence-min-1068x801.jpg",
         tags: ["Serverless", "AI", "Cloud Computing", "Backend"],
         content: {
             introduction: {
