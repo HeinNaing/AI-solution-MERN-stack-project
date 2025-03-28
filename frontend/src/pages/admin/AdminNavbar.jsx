@@ -107,7 +107,7 @@ const NavBar = () => {
             </NavLink>
           </li>
           <li className="mb-1">
-            <NavLink to="/admin/blogs" className={navLinkClass}>
+            <NavLink to="/admin/blog-management" className={navLinkClass}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1M19 8l-7 7-7-7M19 12h-3" />
               </svg>
