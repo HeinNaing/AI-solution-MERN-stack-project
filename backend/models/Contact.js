@@ -30,7 +30,12 @@ const contactSchema = new Schema(
     message: {
       type: String,
       required: [true, "Message is required"],
-    }
+    },
+    status: {
+      type: String,
+      enum: ["pending", "processed", "archived"],
+      default: "pending",
+    },
   },
   {
     timestamps: true,

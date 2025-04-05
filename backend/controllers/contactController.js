@@ -66,6 +66,39 @@ const contactController = {
       res.status(500).json({ message: error.message });
     }
   },
+
+  // Get contacts by country
+  getContactsByCountry: async (req, res) => {
+    try {
+      const { country } = req.params;
+
+      // Convert country parameter to match your database format (e.g., uppercase)
+      const formattedCountry = country.toUpperCase();
+
+      const contacts = await Contact.find({
+        country: { $regex: new RegExp(formattedCountry, 'i') }
+      }).sort({ createdAt: -1 });
+
+      if (!contacts || contacts.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: `No contacts found from ${country}`
+        });
+      }
+
+      res.status(200).json({
+        success: true,
+        count: contacts.length,
+        data: contacts
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Error retrieving contacts by country",
+        error: error.message
+      });
+    }
+  },
 };
 
 module.exports = contactController;

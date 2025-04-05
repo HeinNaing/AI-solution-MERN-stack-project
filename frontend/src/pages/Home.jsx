@@ -1,20 +1,20 @@
 /* ----  context import here  ----  */
 import { ThemeContext } from "../context/ThemeContext";
-import { useContext } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router";
 
 /* ----  data import  ----  */
 import { images } from "../assets/images";
 import { missions } from '../data/missions';
 import { features } from '../data/features';
 import { blogPosts } from '../data/blogPosts';
-
+import Feedback from "../components/Feedback";
 
 /* ----  card import here  ----  */
 import MissionCard from "../components/MissionCard";
 import FeatureCard from "../components/FeatureCard";
 import BlogCard from '../components/BlogCard';
-
+import { api } from "../services/api"
 /* ----  icon import here  ----  */
 import { FaEnvelope, FaChevronDown, FaGlobeAmericas, FaLightbulb, FaUsers, FaLeaf } from 'react-icons/fa';
 const iconMap = {
@@ -29,9 +29,20 @@ const iconMap = {
 
 const Home = () => {
   const { isDarkMode } = useContext(ThemeContext);
+  const [recentPosts, setRecentPosts] = useState([]);
 
-  // Get first 3 blog posts
-  const recentPosts = blogPosts.slice(0, 3);
+  useEffect(() => {
+    const fetchRecentPosts = async () => {
+      try {
+        const response = await api.get('/blogs?page=1&limit=3');
+        console.log(response);
+        setRecentPosts(response.blogs);
+      } catch (error) {
+        console.error('Error fetching recent posts:', error);
+      }
+    };
+    fetchRecentPosts();
+  }, []);
 
   return (
     <div className="min-h-screen">
@@ -65,10 +76,10 @@ const Home = () => {
             </div>
           </div>
           {/* Contact Button */}
-          <button className="bg-primary text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-[#3445DB] transition-colors duration-200 font-outfit group cursor-pointer">
+          <Link to="/contact-us" className="bg-primary text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-[#3445DB] transition-colors duration-200 font-outfit group cursor-pointer w-fit">
             Contact Now
             <FaEnvelope className="group-hover:animate-bounce" />
-          </button>
+          </Link>
         </div>
         {/* Right Image */}
         <img src={isDarkMode ? images.problemDarkMode : images.problemLightMode} alt="Intro View" className="w-[680px] h-[500px] rotate-x-10 -rotate-y-15 rounded-2xl lg:block hidden" />
@@ -133,56 +144,12 @@ const Home = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {recentPosts.map((post) => (
-            <BlogCard key={post.id} post={post} />
+            <BlogCard key={post._id} post={post} />
           ))}
         </div>
       </div>
 
-      {/* Feedbacks Section */}
-      <div className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center  mb-4 ">Feedbacks</h2>
-          <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-            maximus
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((feedback) => (
-              <div key={feedback} className="bg-white p-6 rounded-lg shadow-lg">
-                <p className="text-gray-600 mb-6">
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                  maximus, nulla ut commodo sagittis, sapien dui mattis dui"
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                    <svg
-                      className="w-6 h-6 text-gray-500"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold ">Hein Naing</h4>
-                    <p className="text-sm text-gray-500">Developer</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-center gap-2 mt-8">
-            {[1, 2, 3].map((dot) => (
-              <button
-                key={dot}
-                className={`w-2 h-2 rounded-full ${dot === 1 ? "bg-[#4052FF]" : "bg-gray-300"
-                  }`}
-                aria-label={`Go to slide ${dot}`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+      <Feedback />
 
 
     </div>

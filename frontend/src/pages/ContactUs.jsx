@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { api } from '../services/api';
+import { useNavigate } from 'react-router';
 
 function ContactUs() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,6 +25,9 @@ function ContactUs() {
         type: 'success',
         message: 'Thank you for your message. We will contact you soon!'
       });
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
       // Reset form
       setFormData({
         name: '',
@@ -171,9 +176,9 @@ function ContactUs() {
                 required
               >
                 <option value="">Select</option>
-                <option value="myanmar">Myanmar</option>
-                <option value="thailand">Thailand</option>
-                <option value="singapore">Singapore</option>
+                <option value="Myanmar">Myanmar</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Singapore">Singapore</option>
               </select>
             </div>
 

@@ -15,6 +15,7 @@ import AdminBlogManagement from "../pages/admin/AdminBlogManagement";
 import IndustrySolution from "../pages/IndustrySolution";
 import EventDisplay from "../pages/EventDisplay";
 import BlogDetail from "../pages/BlogDetail";
+import SoftwareSolution from "../pages/SoftwareSolution";
 function Router() {
   const {user} = useContext(AuthContext);
   
@@ -33,6 +34,8 @@ function Router() {
           <Route path="customer-feedback" element={<CustomerFeedback />} />
           <Route path="industry-solution" element={<IndustrySolution />} />
           <Route path="event-display" element={<EventDisplay />} />
+          <Route path="solutions/:id" element={<SoftwareSolution />} />
+
       </Route>
       {/* Admin routes */}
       <Route path="/admin" element={user ? <AdminApp /> : <Navigate to="/admin/login" />}>

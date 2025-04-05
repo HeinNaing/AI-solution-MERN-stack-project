@@ -67,24 +67,70 @@ export const api = {
    * @param {Object} data
    * @returns {Promise}
    */
+  // post: async (endpoint, data) => {
+  //   try {
+  //     const response = await fetch(`${API_BASE_URL}/api/v1${endpoint}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+  //     if (!response.ok) {
+  //       const error = await response.json();
+  //       throw new Error(
+  //         error.message || `HTTP error! status: ${response.status}`
+  //       );
+  //     }
+  //     return response.json();
+  //   } catch (error) {
+  //     console.error("API Error:", error);
+  //     throw error;
+  //   }
+  // },
   post: async (endpoint, data) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1${endpoint}`, {
-        method: "POST",
+      const response = await axios.post(`${API_BASE_URL}/api/v1${endpoint}`, data, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        withCredentials: true, // If authentication is needed (optional)
       });
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(
-          error.message || `HTTP error! status: ${response.status}`
-        );
-      }
-      return response.json();
+
+      return response.data; // Axios automatically parses JSON
     } catch (error) {
-      console.error("API Error:", error);
+      console.error("API Error:", error.response?.data || error.message);
+      throw error;
+    }
+  },
+  put: async (endpoint, data) => {
+    try {
+      const response = await axios.put(`${API_BASE_URL}${endpoint}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true, // If authentication is needed (optional)
+      });
+
+      return response.data; // Axios automatically parses JSON
+    } catch (error) {
+      console.error("API Error:", error.response?.data || error.message);
+      throw error;
+    }
+  },
+
+  patch: async (endpoint, data) => {
+    try {
+      const response = await axios.patch(`${API_BASE_URL}${endpoint}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true, // If authentication is needed (optional)
+      });
+
+      return response.data; // Axios automatically parses JSON
+    } catch (error) {
+      console.error("API Error:", error.response?.data || error.message);
       throw error;
     }
   },
@@ -96,20 +142,13 @@ export const api = {
    */
   delete: async (endpoint) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1${endpoint}`, {
-        method: "DELETE",
+      const response = await axios.delete(`${API_BASE_URL}/api/v1${endpoint}`, {
+        withCredentials: true, // If you need cookies/authentication
       });
-      const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(
-          data.message || `HTTP error! status: ${response.status}`
-        );
-      }
-
-      return data;
+      return response.data; // Axios automatically parses JSON
     } catch (error) {
-      console.error("API Error:", error);
+      console.error("API Error:", error.response?.data || error.message);
       throw error;
     }
   },
@@ -132,6 +171,16 @@ export const api = {
       throw error;
     }
   },
+  getBlogs: async (endpoint) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/v1${endpoint}`, { withCredentials: true })
+      return response.data;
+    } catch (error) {
+      console.error("API Error:", error);
+      throw error;
+    }
+  },
+
   logout: async (endpoint) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/v1${endpoint}`, {}, { withCredentials: true })

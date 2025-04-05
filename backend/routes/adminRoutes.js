@@ -16,7 +16,7 @@ router
                     throw new Error("Email not exists");
                 }
             }),
-            body("password").notEmpty().withMessage("Password is required"),
+            body("password").notEmpty().withMessage("Password is required"),    
         ],
         handleErrorMessages,
         adminController.login

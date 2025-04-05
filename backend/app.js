@@ -9,6 +9,7 @@ const blogsRoutes = require("./routes/blogRoutes");
 const userRoutes = require("./routes/userRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const emailRoutes = require('./routes/emailRoutes');
 const AuthMiddleware = require("./middlewares/AuthMiddleware");
 
 const app = express();
@@ -23,10 +24,9 @@ app.use(morgan("dev"));
 app.use(express.json()); // for parsing application/json
 app.use("/api/v1/blogs", blogsRoutes);
 app.use("/api/v1/users", userRoutes);
-app.use("/api/v1/contacts", AuthMiddleware,  contactRoutes);
+app.use("/api/v1/contacts", AuthMiddleware, contactRoutes);
 app.use("/api/v1/admin", adminRoutes);
-
-
+app.use('/api/v1/contacts/send-email', emailRoutes);
 
 app.use("/set-cookies", (req, res) => {
     res.cookie("user", "aungaung", { httpOnly: true, });

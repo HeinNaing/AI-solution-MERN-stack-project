@@ -1,12 +1,12 @@
-import { useState , useContext} from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { api } from "../../services/api";
 import { AuthContext } from "../../context/AuthContext";
 
 const AdminLogin = () => {
 
-    const {dispatch} = useContext(AuthContext);
-        
+    const { dispatch } = useContext(AuthContext);
+
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
@@ -19,7 +19,7 @@ const AdminLogin = () => {
         const { name, value } = e.target;
         setFormData(prevState => ({
             ...prevState,
-            [name]: value   
+            [name]: value
         }));
         // Clear error when user starts typing
         if (error) setError(null);
@@ -36,14 +36,15 @@ const AdminLogin = () => {
             if (response.status === 200) {
                 dispatch({
                     type: "LOGIN",
-                    payload: response.token
+                    payload: response
                 })
                 navigate('/admin/dashboard');
             }
 
         } catch (err) {
+            console.log(err.response.data.error)
             setError(
-                err.response?.data?.errors[0].msg|| 
+                err.response.data.error || err.response?.data?.errors[0].msg ||
                 'An error occurred during login'
             );
         } finally {
@@ -58,7 +59,7 @@ const AdminLogin = () => {
                     <h2 className="text-3xl font-bold text-white mb-2">Admin Panel</h2>
                     <h3 className="text-xl text-white mb-8">Login</h3>
                 </div>
-                
+
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-300">
@@ -115,6 +116,9 @@ const AdminLogin = () => {
 
                 <p className="mt-6 text-center text-sm text-gray-400">
                     Login to your admin account to continue
+                </p>
+                <p className="mt-6 text-center text-sm text-gray-400">
+                    Testing Purpose : admin@gmail.com / admintesting123
                 </p>
             </div>
         </div>

@@ -149,6 +149,31 @@ const blogController = {
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
+  },
+
+  getBlogCount: async (req, res) => {
+    try {
+      const count = await BlogPost.countDocuments();
+      res.status(200).json({
+        success: true,
+        count: count
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to get blog count",
+        error: error.message
+      });
+    }
+  },
+
+  getAllBlogsForTags: async (req, res) => {
+    try {
+      const blogs = await BlogPost.find({}, 'tags'); // Only fetch the tags field
+      res.json(blogs);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching blogs", error: error.message });
+    }
   }
 };
 

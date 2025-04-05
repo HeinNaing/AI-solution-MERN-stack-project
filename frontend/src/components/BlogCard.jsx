@@ -36,7 +36,7 @@ const BlogCard = ({ post }) => {
                         ))}
                     </div>
                     <NavLink
-                        to={`/blog/${post.id}`}
+                        to={`/blog/${post._id}`}
                         className="btn btn-primary w-full"
                     >
                         Read More

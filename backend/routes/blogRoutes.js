@@ -5,6 +5,10 @@ const blogController = require("../controllers/blogController");
 const handleErrorMessages = require("../middlewares/handleErrorMessages");
 
 const router = express.Router();
+
+// Get blog count
+router.get("/count", blogController.getBlogCount);
+
 router
   .route("/")
   .get(blogController.getAllBlogs)
@@ -12,7 +16,6 @@ router
     [
       body("title").notEmpty().withMessage("Title is required"),
       body("content").notEmpty().withMessage("Content is required"),
-      body("author").notEmpty().withMessage("Author is required"),
     ],
     handleErrorMessages,
     blogController.createBlog
@@ -22,5 +25,8 @@ router
   .get(blogController.getBlog)
   .patch(blogController.updateBlog)
   .delete(blogController.deleteBlog);
+
+// Route to get all blogs for tag extraction
+router.get('/all/tags', blogController.getAllBlogsForTags);
 
 module.exports = router;
